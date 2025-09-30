@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Server Launch Countdown</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      text-align: center;
+      background: linear-gradient(-45deg, #ff416c, #ff4b2b, #1e3c72, #2a5298);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      overflow: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      text-shadow: 0 0 15px rgba(255,255,255,0.8),
+                   0 0 30px #ff416c,
+                   0 0 45px #ff4b2b;
+      margin: 10px;
+    }
+
+    #countdown {
+      font-size: 3rem;
+      margin-top: 20px;
+      padding: 15px 30px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 15px;
+      background: rgba(0,0,0,0.4);
+      box-shadow: 0 0 20px rgba(255,255,255,0.4),
+                  0 0 40px rgba(255,75,43,0.6);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); text-shadow: 0 0 10px #fff; }
+      50% { transform: scale(1.1); text-shadow: 0 0 25px #ff416c, 0 0 50px #ff4b2b; }
+      100% { transform: scale(1); text-shadow: 0 0 10px #fff; }
+    }
+
+    /* Explosion effect */
+    .explode {
+      animation: shake 0.5s ease, fadeOut 1s forwards;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-10px, 10px) rotate(-5deg); }
+      50% { transform: translate(10px, -10px) rotate(5deg); }
+      75% { transform: translate(-5px, 5px) rotate(-3deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; transform: scale(2); }
+    }
+
+    /* Flash effect */
+    #flash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: white;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .flashActive {
+      animation: flashAnim 1s ease forwards;
+    }
+
+    @keyframes flashAnim {
+      0% { opacity: 0; }
+      30% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      #countdown {
+        font-size: 2rem;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 Our Discord Server Launches Soon 🚀</h1>
+  <div id="countdown"></div>
+  <div id="flash"></div>
+
+  <!-- Explosion sound -->
+  <audio id="explosionSound" src="explosion.mp3"></audio>
+
+  <script>
+    // Launch date: November 1, 2025
+    const launchDate = new Date("Nov 1, 2025 00:00:00").getTime();
+
+    const timer = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerHTML =
+        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+      if (distance < 0) {
+        clearInterval(timer);
+
+        const countdown = document.getElementById("countdown");
+        const flash = document.getElementById("flash");
+
+        // Add explosion animation
+        countdown.classList.add("explode");
+
+        // Flash effect
+        flash.classList.add("flashActive");
+
+        // Play explosion sound
+        document.getElementById("explosionSound").play();
+
+        // Redirect to Discord after 3 seconds
+        setTimeout(() => {
+          window.location.href = "https://discord.gg/qBPWq3pGR";
+        }, 3000);
+      }
+    }, 1000);
+  </script>
+</body>
+  </html>
