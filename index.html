@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Server Launch Countdown</title>
+  <title>Countdown</title>
   <style>
     body {
       margin: 0;
@@ -28,17 +28,8 @@
       100% {background-position: 0% 50%;}
     }
 
-    h1 {
-      font-size: 3.5rem;
-      text-shadow: 0 0 15px rgba(255,255,255,0.8),
-                   0 0 30px #ff416c,
-                   0 0 45px #ff4b2b;
-      margin: 10px;
-    }
-
     #countdown {
       font-size: 3rem;
-      margin-top: 20px;
       padding: 15px 30px;
       border: 2px solid rgba(255,255,255,0.3);
       border-radius: 15px;
@@ -54,7 +45,6 @@
       100% { transform: scale(1); text-shadow: 0 0 10px #fff; }
     }
 
-    /* Explosion effect */
     .explode {
       animation: shake 0.5s ease, fadeOut 1s forwards;
     }
@@ -72,7 +62,6 @@
       100% { opacity: 0; transform: scale(2); }
     }
 
-    /* Flash effect */
     #flash {
       position: fixed;
       top: 0; left: 0;
@@ -92,11 +81,7 @@
       100% { opacity: 0; }
     }
 
-    /* Mobile responsiveness */
     @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
       #countdown {
         font-size: 2rem;
         padding: 10px 20px;
@@ -105,7 +90,6 @@
   </style>
 </head>
 <body>
-  <h1>🚀 Our Discord Server Launches Soon 🚀</h1>
   <div id="countdown"></div>
   <div id="flash"></div>
 
@@ -134,16 +118,11 @@
         const countdown = document.getElementById("countdown");
         const flash = document.getElementById("flash");
 
-        // Add explosion animation
         countdown.classList.add("explode");
-
-        // Flash effect
         flash.classList.add("flashActive");
 
-        // Play explosion sound
         document.getElementById("explosionSound").play();
 
-        // Redirect to Discord after 3 seconds
         setTimeout(() => {
           window.location.href = "https://discord.gg/qBPWq3pGR";
         }, 3000);
@@ -151,4 +130,4 @@
     }, 1000);
   </script>
 </body>
-  </html>
+</html>
